@@ -30,9 +30,8 @@ class _NativeQrScannerPageState extends State<NativeQrScannerPage>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
 
-    // When app resumes from background (like returning from browser)
+ 
     if (state == AppLifecycleState.resumed && !_isScanning) {
-      // Small delay to ensure the activity is fully visible
       Future.delayed(const Duration(milliseconds: 300), () {
         if (mounted) {
           _startNativeScanner();
@@ -58,9 +57,6 @@ class _NativeQrScannerPageState extends State<NativeQrScannerPage>
 
         if (result != null) {
           debugPrint("Scanned result: $result");
-
-          // Handle non-URL results here if needed
-          // For URLs, the Android side handles opening the browser
           if (!result.startsWith('http')) {
             // Handle non-URL QR codes
             _handleNonUrlResult(result);
@@ -78,11 +74,7 @@ class _NativeQrScannerPageState extends State<NativeQrScannerPage>
   }
 
   void _handleNonUrlResult(String result) {
-    // Handle non-URL QR codes here - you can process the result as needed
-    // For example, you might want to navigate back or do something with the result
     debugPrint("Non-URL QR result: $result");
-
-    // Navigate back to previous screen since scanning is complete
     Navigator.of(context).pop();
   }
 
